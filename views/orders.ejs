@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: orange;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border-left: 5px solid orange;
+        }
+
+        li:hover {
+            transform: translateY(-10px);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: grey;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Orders</h1>
+    <ul>
+        <% orders.forEach(order => { %>
+            <li>
+                <h2>Order ID: <%= order._id %></h2>
+                <p>Items: <%= order.items.join(', ') %></p>
+                <p>Total Price: $<%= order.total_price %></p>
+                <p>Status: <%= order.status %></p>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

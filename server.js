@@ -82,7 +82,27 @@ app.post("/signup", async (req, res) => {
     return res.render("/signup.ejs",{msg:msg});
   }
 });
-
+app.get("/offers", async (req, res) => {
+  try {
+    const offers = await db.collection("offers").find({}).toArray();
+    res.render("offers.ejs", { offers });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching offers from database');
+  }
+});
+app.get("/orders",async (req,res)=>{
+  try {
+    const orders = await db.collection("login").find({user_name:name1},{orders:1}).toArray();
+    res.render("orders.ejs", { orders });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching offers from database');
+  }
+});
+app.get("/men",(req,res)=>{
+    res.render("men.ejs",{name:name1});
+});
 app.listen(3001, () => {
   console.log("Server started");
 });
