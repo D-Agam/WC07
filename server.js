@@ -8,6 +8,7 @@ const e = require("express");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 let db;
+var name1="User";
 var msg="Good to have you back!!";
 connectToDb((err) => {
   if (!err) {
@@ -33,8 +34,9 @@ app.post("/login",async (req,res)=>{
         const check=await db
         .collection("login").findOne({user_name:name,password:password});
         if(check){
+          name1=name;
             msg=("Login success");
-            res.render("main.ejs",{msg:msg});
+            res.render("main.ejs",{name:name1});
         }
         msg=("Wrong password or name");
         res.render("login.ejs",{msg:msg});
@@ -71,9 +73,9 @@ app.post("/signup", async (req, res) => {
       phonenumber: contact,
       password: password,
     });
-
+    name1=name;
     msg=("User login success");
-    return res.render("/main.ejs",{msg:msg});
+    return res.render("/main.ejs",{name:name1});
   } catch (error) {
     msg="Error please signup again";
     console.error("Error during signup:", error);
