@@ -103,6 +103,17 @@ app.get("/orders",async (req,res)=>{
 app.get("/men",(req,res)=>{
     res.render("men.ejs",{name:name1});
 });
+
+app.get("/men_shirts", async (req, res) => {
+  try {
+    const product = await db.collection("men").find({"upper/lower": "shirt"}).toArray();
+    res.render("men_shirts.ejs", { product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching products from database');
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server started");
 });

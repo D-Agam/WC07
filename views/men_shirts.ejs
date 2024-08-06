@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buy-O-Ease</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Shirts</title>
     <script src="https://kit.fontawesome.com/020317c8c3.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,6 +29,7 @@
         body {
             line-height: 1;
             font-family: "Montserrat", sans-serif;
+            background-color: rgb(236, 233, 233);
         }
 
         nav {
@@ -129,136 +130,40 @@
             color: white;
         }
 
-        @media screen and (max-width: 1400px) {
-            .nav-links a {
-                font-size: 15px;
-                padding: 11px 30px 11px 30px;
-            }
-        }
-
-        @media screen and (max-width: 1200px) {
-            .nav-links a {
-                font-size: 14px;
-                padding: 10px 25px 10px 25px;
-            }
-        }
-
-        @media screen and (max-width: 1000px) {
-            .nav-links a {
-                font-size: 12px;
-                padding: 10px 20px 10px 20px;
-            }
-
-            .search input:focus {
-                border-color: rgb(0, 0, 0);
-                width: 25em;
-                padding: 8px 15px 8px 35px;
-                text-align: start;
-            }
-        }
-
-        @media screen and (max-width: 820px) {
-            .nav-links a {
-                font-size: 11px;
-                padding: 9px 16px 9px 16px;
-            }
-        }
-
-        @media screen and (max-width: 720px) {
-            .nav-links a {
-                font-size: 15px;
-                padding: 8px 25px 8px 25px;
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-
-            .nav-links {
-                height: 5.5em;
-            }
-        }
-
-        @media screen and (max-width: 620px) {
-            .nav-links a {
-                font-size: 13px;
-                padding: 8px 20px 8px 20px;
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-
-            .log-in {
-                width: 8em;
-                margin-right: 1em;
-            }
-
-            .log-in a {
-                font-size: 0.8em;
-                padding: 6px 9px 6px 9px;
-            }
-
-            .search input {
-                width: 12em;
-                font-size: 14px;
-                padding: 6px 15px 6px 30px;
-                margin-right: 10px;
-            }
-
-            .search input:focus {
-                border-color: rgb(0, 0, 0);
-                width: 16em;
-                font-size: 14px;
-                padding: 8px 15px 8px 35px;
-                text-align: start;
-            }
-
-            .main-image h1 {
-                font-size: 6em;
-            }
-        }
-
-        @media screen and (max-width: 530px) {
-            .nav-links a {
-                font-size: 11px;
-                padding: 8px 16px 8px 16px;
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            .search input {
-                width: 10em;
-                font-size: 12px;
-                padding: 6px 15px 6px 30px;
-                margin-right: 10px;
-            }
-
-            .search input:focus {
-                width: 12em;
-                font-size: 12px;
-                padding: 6px 15px 6px 35px;
-                text-align: start;
-            }
-
-            .logo {
-                font-size: 1.2em;
-            }
-        }
-
-        @media screen and (max-width: 450px) {
-            .nav-links a {
-                font-size: 11px;
-                padding: 6px 14px 6px 14px;
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-
-            .nav-links {
-                height: 4em;
-            }
-        }
-
         .container {
-            padding: 2em 0;
+            display: flex;
+            padding: 2em;
+        }
+
+        .sidebar {
+            width: 25%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ccc;
+            margin-left: -200px;
+        }
+
+        .filter-section {
+            /* height: 50px; */
+            margin-bottom: 20px;
+            
+        }
+
+        .filter-section h3 {
+            font-size: 1.2em;
+            color: orange;
+            margin-bottom: 0px;
+        }
+
+        .filter-section label {
+            display: block;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .products {
+            width: 75%;
+            padding: 20px;
         }
 
         .card {
@@ -268,6 +173,7 @@
             transition: transform 0.3s;
             position: relative;
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
         .card:hover {
@@ -494,7 +400,7 @@
         }
     </style>
 </head>
-<body style="background-color: rgb(236, 233, 233)">
+<body>
     <nav>
         <div class="nav-bar">
             <div class="logo">Buy-O-Ease</div>
@@ -512,34 +418,48 @@
             <a href="/orders">Orders</a>
         </div>
     </nav>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-sm-4 mb-4">
-                <div class="card">
-                    <div class="card-strip"></div>
-                    <div class="card-body">
-                        <img class="card-img-top" src="men_shirts.jpg" alt="Shirts" />
-                        <a href="/men_shirts" class="btn btn-primary mt-3">Shirts</a>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-section">
+                <h3>Color</h3>
+                <label><input type="checkbox" name="color" value="black"> Black</label>
+                <label><input type="checkbox" name="color" value="white"> White</label>
+                <label><input type="checkbox" name="color" value="blue"> Blue</label>
+                <label><input type="checkbox" name="color" value="brown"> Brown</label>
             </div>
-            <div class="col-sm-4 mb-4">
-                <div class="card">
-                    <div class="card-strip"></div>
-                    <div class="card-body">
-                        <img class="card-img-top" src="men_jeans.jpg" alt="Jeans" />
-                        <a href="/men_jeans" class="btn btn-primary mt-3">Jeans</a>
-                    </div>
-                </div>
+            <div class="filter-section">
+                <h3>Type</h3>
+                <label><input type="checkbox" name="type" value="eco-friendly"> Eco-Friendly</label>
+                <label><input type="checkbox" name="type" value="normal"> Normal</label>
             </div>
-            <div class="col-sm-4 mb-4">
-                <div class="card">
-                    <div class="card-strip"></div>
-                    <div class="card-body">
-                        <img class="card-img-top" src="trending.jpg" alt="Trending" />
-                        <a href="/men_trending" class="btn btn-primary mt-3">Trending</a>
+            <div class="filter-section">
+                <h3>Price</h3>
+                <label><input type="checkbox" name="price" value="199-499"> 199-499</label>
+                <label><input type="checkbox" name="price" value="499-799"> 499-799</label>
+                <label><input type="checkbox" name="price" value="Above-799"> Above 799</label>
+            </div>
+            <div class="filter-section">
+                <a href="#" class="btn btn-primary mt-3">Compare Now</a>
+            </div>
+        </div>
+        <div class="products">
+            <div class="row">
+                <% product.forEach(item => { %>
+                <div class="col-sm-4 col-md-6 mb-6">
+                    <div class="card">
+                        <div class="card-strip"></div>
+                        <div class="card-body">
+                            <img class="card-img-top" src="<%= item.ID%>.webp" alt="<%= item.ID%>" />
+                            <h5><%= item.type %></h5>
+                            <p>Eco-Friendly:-<%= item.eco %></p>
+                            <p><%=item.description%></p>
+                            <p>$<%= item.price %></p>
+                            <a href="#" class="btn btn-primary mt-3">Add to Compare</a>
+                            <a href="#" class="btn btn-primary mt-3">Buy Now</a>
+                        </div>
                     </div>
                 </div>
+                <% }); %>
             </div>
         </div>
     </div>
