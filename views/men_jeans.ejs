@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Men's Shirts</title>
+    <script
+      src="https://kit.fontawesome.com/020317c8c3.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      nav {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+
+      nav {
+        display: block;
+      }
+
+      body {
+        line-height: 1;
+        font-family: "Montserrat", sans-serif;
+        background-color: rgb(236, 233, 233);
+      }
+
+      nav {
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        background-color: black;
+        height: 5em;
+      }
+
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.8em;
+        font-weight: 700;
+        margin-left: 1em;
+        cursor: pointer;
+      }
+
+      .search-icon {
+        color: gray;
+        position: relative;
+        left: 36px;
+        top: 7px;
+      }
+
+      .search input {
+        width: 15em;
+        background-color: rgb(253, 253, 253);
+        border: 1px solid rgb(200, 200, 200);
+        border-radius: 515px;
+        font-size: 16px;
+        padding: 6px 15px 6px 30px;
+        outline: none;
+        text-align: center;
+        max-width: 100%;
+        transition: ease-in-out 0.4s;
+        font-weight: 500;
+      }
+
+      .search input:focus {
+        border-color: rgb(0, 0, 0);
+        width: 30em;
+        padding: 10px 15px 10px 35px;
+        text-align: start;
+      }
+
+      .search input::placeholder {
+        text-align: center;
+      }
+
+      .nav-links {
+        height: 4em;
+        background-color: black;
+        font-family: "Hind", sans-serif;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 2;
+      }
+
+      .nav-links a {
+        color: black;
+        background-color: white;
+        text-align: center;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        transition: ease-in 0.3s;
+        padding: 11px 40px 11px 40px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        border: 2px solid black;
+        transition: ease-in 0.3s;
+      }
+
+      .nav-links a:first-of-type {
+        color: white;
+        background: linear-gradient(to top right, #2d2d2d, #000000, #1f1f1f)
+            padding-box,
+          linear-gradient(to top right, #ff8a00, #e52e71) border-box;
+        border-radius: 5px;
+        border: 2px solid transparent;
+      }
+
+      .nav-links a:nth-of-type(n + 2):hover {
+        border-radius: 5px;
+        background-color: #000000;
+        border: 2px solid white;
+        color: white;
+      }
+
+      .container {
+        display: flex;
+        padding: 2em;
+      }
+
+      .sidebar {
+        width: 25%;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-right: 1px solid #ccc;
+        margin-left: -200px;
+      }
+
+      .filter-section {
+        /* height: 50px; */
+        margin-bottom: 20px;
+      }
+
+      .filter-section h3 {
+        font-size: 1.2em;
+        color: orange;
+        margin-bottom: 0px;
+      }
+
+      .filter-section label {
+        display: block;
+        font-size: 1em;
+        margin-bottom: 5px;
+      }
+
+      .products {
+        width: 75%;
+        padding: 20px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card-body {
+        padding: 1em;
+        text-align: center;
+      }
+
+      .card-img-top {
+        border-radius: 0 0 10px 10px;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .card-strip {
+        background-color: orange;
+        height: 10px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .btn-primary {
+        background-color: #415c7a;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 25px;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #3ec887;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+        flex-wrap: wrap;
+      }
+
+      .footer-section {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .footer-section h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: orange;
+      }
+
+      .footer-section p {
+        line-height: 1.6;
+      }
+
+      .footer-section a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      .footer-section a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-section ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-section ul li a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .footer-section ul li a:hover {
+        text-decoration: underline;
+      }
+
+      .socials a {
+        color: #fff;
+        margin: 0 10px;
+        font-size: 18px;
+      }
+
+      .socials a:hover {
+        color: orange;
+      }
+
+      .footer-bottom {
+        background-color: #222;
+        color: #aaa;
+        padding: 20px 0;
+        font-size: 14px;
+      }
+
+      @media screen and (max-width: 425px) {
+        .log-in {
+          width: 6em;
+          margin-right: 1em;
+          flex-direction: column;
+        }
+
+        .log-in a {
+          font-size: 0.6em;
+          padding: 4px 6px 4px 6px;
+          margin-top: 2px;
+        }
+
+        .nav-links a {
+          font-size: 9px;
+          padding: 5px 10px 4px 10px;
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        .nav-links {
+          height: 3em;
+        }
+
+        .nav-bar {
+          height: 3em;
+        }
+
+        .search input {
+          width: 12em;
+          font-size: 8px;
+          padding: 4px 15px 4px 22px;
+          text-align: left;
+          margin-right: 10px;
+        }
+
+        .search input:focus {
+          width: 12em;
+          font-size: 9px;
+          padding: 4px 15px 4px 22px;
+          text-align: left;
+        }
+
+        .search-icon {
+          color: gray;
+          position: relative;
+          left: 24px;
+          top: 3px;
+          font-size: 0.8em;
+        }
+
+        .search input::placeholder {
+          text-align: left;
+        }
+
+        .logo {
+          font-size: 1em;
+        }
+
+        .main-image h1 {
+          font-size: 4em;
+          -webkit-text-stroke: 1px rgb(255, 255, 255);
+        }
+      }
+
+      @media screen and (max-width: 340px) {
+        .nav-links a {
+          font-size: 9px;
+          padding: 5px 8px 3px 8px;
+          margin-left: 2px;
+          margin-right: 2px;
+        }
+
+        .search input {
+          width: 12em;
+          font-size: 8px;
+          padding: 3px 10px 3px 10px;
+          text-align: left;
+          position: relative;
+          left: 10px;
+        }
+
+        .search input:focus {
+          width: 13em;
+          font-size: 9px;
+          padding: 3px 10px 3px 10px;
+          text-align: left;
+        }
+
+        .search-icon {
+          opacity: 0;
+        }
+
+        .logo {
+          font-size: 0.7em;
+        }
+
+        .log-in {
+          width: 6em;
+          margin-right: 1em;
+          flex-direction: column;
+        }
+
+        .log-in a {
+          font-size: 0.6em;
+          padding: 1px 6px 1px 6px;
+          margin-top: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-bar">
+        <div class="logo">Buy-O-Ease</div>
+        <div class="search">
+          <span class="material-symbols-outlined search-icon"> search </span>
+          <input
+            class="search-bar"
+            placeholder="Find Your Buy..."
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="/" class="selected-link">Home</a>
+        <a href="/offers">Offers</a>
+        <a href="/men">Men</a>
+        <a href="/women">Women</a>
+        <a href="/accessories">Accessories</a>
+        <a href="/orders">Orders</a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="sidebar">
+        <div class="filter-section">
+        <form action="/filter1" method="POST">
+          <h3>Color</h3>
+          <label
+            ><input type="checkbox" name="color" value="black" /> Black</label
+          >
+          <label
+            ><input type="checkbox" name="color" value="white" /> White</label
+          >
+          <label><input type="checkbox" name="color" value="blue" /> Blue</label>
+          <label
+            ><input type="checkbox" name="color" value="brown" /> Brown</label
+          >
+        </div>
+        <div class="filter-section">
+          <h3>Type</h3>
+          <label
+            ><input type="checkbox" name="type" value="eco-friendly" />
+            Eco-Friendly</label
+          >
+          <label
+            ><input type="checkbox" name="type" value="normal" />
+            Normal</label
+          >
+        </div>
+        <div class="filter-section">
+          <h3>Price Under</h3>
+          <label
+            ><input type="checkbox" name="price" value="499" />499</label
+          >
+          <label
+            ><input type="checkbox" name="price" value="999" />999</label
+          >
+        </div>
+        <div class="filter-section">
+          <button class="btn btn-primary mt-3" type="submit">Apply filter</button>
+        </div>
+        </form> 
+      </div>
+      <div class="products">
+        <form action="/compare" method="post">
+        <div class="row">
+          <% product.forEach(item => { %>
+          <div class="col-sm-4 col-md-6 mb-6">
+            <div class="card">
+              <div class="card-strip"></div>
+              <div class="card-body">
+                <img
+                  class="card-img-top"
+                  src="<%= item.ID%>.webp"
+                  alt="<%= item.ID%>"
+                />
+                <h5><%= item.type %></h5>
+                <p>Eco-Friendly:-<%= item.eco %></p>
+                <p><%=item.description%></p>
+                <p>$<%= item.price %></p>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="compare[]" value="<%= item._id %>" id="compare-<%= item._id %>">
+                  <label class="form-check-label" for="compare-<%= item._id %>">Add to Compare</label>
+                </div>
+                <a href="#" class="btn btn-primary mt-3">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Compare Selected</button>
+      </form>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section about">
+          <h2>About Us</h2>
+          <p>
+            Buy-O-Ease is your go-to online store for the latest fashion and
+            accessories. We provide high-quality products at the best prices.
+          </p>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a
+            >&nbsp;&nbsp;|&nbsp;
+            <a href="#"><i class="fa-brands fa-instagram"></i></a
+            >&nbsp;&nbsp;|&nbsp;
+            <a href="#"><i class="fa-solid fa-envelope"></i></a
+            >&nbsp;&nbsp;|&nbsp;
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>&nbsp;&nbsp;
+          </div>
+        </div>
+        <div class="footer-section links">
+          <h2>Quick Links</h2>
+          <ul>
+            <li><a href="/men">Men</a></li>
+            <li><a href="/women">Women</a></li>
+            <li><a href="/accessories">Accessories</a></li>
+            <li><a href="/offers">Offers</a></li>
+            <li><a href="/orders">Orders</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2024 Buy-O-Ease | Designed by Buy-O-Ease Team
+      </div>
+    </footer>
+  </body>
+</html>

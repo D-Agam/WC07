@@ -183,7 +183,71 @@ app.post("/compare", async (req, res) => {
   }
 });
 
+app.get("/men_jeans", async (req, res) => {
+  try {
+    const product = await db.collection("men").find({"upper/lower": "jeans"}).toArray();
+    res.render("men_jeans.ejs", { product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching products from database');
+  }
+});
+app.post("/filter1", async (req, res) => {
+  let { color, type, price } = req.body;
+  let f = "No";
 
+  // Set eco filter
+  if (Array.isArray(type) && type.includes("eco-friendly")) {
+    f = "Yes";
+  } else if (type === "eco-friendly") {
+    f = "Yes";
+  }
+  if (Array.isArray(type) && type.includes("normal")) {
+    f = "No";
+  } else if (type === "normal") {
+    f = "No";
+  }
+
+  // Normalize checkbox values to arrays
+  color = Array.isArray(color) ? color : (color ? [color] : []);
+  type = Array.isArray(type) ? type : (type ? [type] : []);
+  price = Array.isArray(price) ? price.map(p => parseFloat(p)) : (price ? [parseFloat(price)] : []);
+
+  // Determine the maximum price if multiple price checkboxes are selected
+  const maxPrice = price.length > 0 ? Math.max(...price) : null;
+
+  // Build the query object dynamically
+  let query = {
+    "upper/lower": "jeans"
+  };
+
+  if (color.length > 0) {
+    query.color = { $in: color }; // Include color filter if colors are selected
+  }
+
+  if (f === "Yes") {
+    query.eco = f; // Include eco filter if eco-friendly is selected
+  }else{
+    query.eco="No";
+  }
+
+  if (maxPrice !== null) {
+    query.price = { $lte: maxPrice }; // Include price filter if a valid price is provided
+  }
+
+  console.log("Query:", query); // Debugging output
+
+  try {
+    // Query the database
+    const product = await db.collection("men").find(query).toArray();
+
+    // Render the results
+    res.render("men_shirts.ejs", { product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching products from database');
+  }
+});
 
 app.listen(3001, () => {
   console.log("Server started");
