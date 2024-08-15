@@ -207,8 +207,6 @@ app.post("/filter1", async (req, res) => {
   } else if (type === "normal") {
     f = "No";
   }
-
-  // Normalize checkbox values to arrays
   color = Array.isArray(color) ? color : (color ? [color] : []);
   type = Array.isArray(type) ? type : (type ? [type] : []);
   price = Array.isArray(price) ? price.map(p => parseFloat(p)) : (price ? [parseFloat(price)] : []);
@@ -248,7 +246,11 @@ app.post("/filter1", async (req, res) => {
     res.status(500).send('Error fetching products from database');
   }
 });
-
+app.get("/cart", async(req, res) => {
+  let cart = JSON.parse(req.headers.cookie) || []; // Adjust this according to how you manage cookies
+  console.log("hhhhhh");
+  res.render("cart.ejs"); // Just render the view, the client-side script will handle the rest
+});
 app.listen(3001, () => {
   console.log("Server started");
 });

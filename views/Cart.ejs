@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+
+      .cart-container {
+        max-width: 800px;
+        margin: auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .cart-item h5 {
+        margin: 0;
+      }
+
+      .proceed-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background-color: #415c7a;
+        color: white;
+        font-size: 1.2em;
+        font-weight: bold;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .proceed-btn:hover {
+        background-color: #3ec887;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cart-container">
+      <h2>Your Cart</h2>
+      <div id="cart-items">
+        <% if (cart.length === 0) { %>
+        <p>Your cart is empty.</p>
+        <% } else { %> <% cart.forEach(item => { %>
+        <div class="cart-item">
+          <h5><%= item.name %></h5>
+          <p>$<%= item.price %> x <%= item.quantity %></p>
+          <button onclick="removeFromCart('<%= item.id %>')">Remove</button>
+        </div>
+        <% }); %> <% } %>
+      </div>
+      <a href="/checkout" class="proceed-btn">Proceed to Payment</a>
+    </div>
+
+    <script>
+      // Function to display cart items on the cart page
+      function displayCart() {
+        // Fetch the cart from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsContainer = document.getElementById("cart-items");
+
+        // Clear the current content
+        cartItemsContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+          // Display a message if the cart is empty
+          cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+        } else {
+          // Iterate through cart items and display them
+          cart.forEach((item) => {
+            const div = document.createElement("div");
+            div.classList.add("cart-item");
+
+            // Use backticks for template literals and enclose the entire HTML string
+            div.innerHTML = `
+      <h5>${item.name}</h5>
+      <p>$${item.price} x ${item.quantity}</p>
+    `;
+
+            cartItemsContainer.appendChild(div);
+          });
+        }
+      }
+
+      // Call the function to display cart items when the page loads
+      document.addEventListener("DOMContentLoaded", displayCart);
+
+      function removeFromCart(id) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        // Filter out the item with the matching id
+        cart = cart.filter((item) => item.id !== id);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        displayCart(); // Refresh the cart display
+      }
+    </script>
+  </body>
+</html>
