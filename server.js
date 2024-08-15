@@ -5,6 +5,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const e = require("express");
+const { log } = require("console");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 let db;
@@ -115,7 +116,7 @@ app.get("/men_shirts", async (req, res) => {
 });
 app.post("/filter", async (req, res) => {
   let { color, type, price } = req.body;
-  let f = "No";
+  let f = "@";
 
   // Set eco filter
   if (Array.isArray(type) && type.includes("eco-friendly")) {
@@ -148,7 +149,7 @@ app.post("/filter", async (req, res) => {
 
   if (f === "Yes") {
     query.eco = f; // Include eco filter if eco-friendly is selected
-  }else{
+  }else if(f==="No"){
     query.eco="No";
   }
 
@@ -194,7 +195,7 @@ app.get("/men_jeans", async (req, res) => {
 });
 app.post("/filter1", async (req, res) => {
   let { color, type, price } = req.body;
-  let f = "No";
+  let f = "@";
 
   // Set eco filter
   if (Array.isArray(type) && type.includes("eco-friendly")) {
@@ -225,7 +226,7 @@ app.post("/filter1", async (req, res) => {
 
   if (f === "Yes") {
     query.eco = f; // Include eco filter if eco-friendly is selected
-  }else{
+  }else if(f==="No"){
     query.eco="No";
   }
 
@@ -246,11 +247,7 @@ app.post("/filter1", async (req, res) => {
     res.status(500).send('Error fetching products from database');
   }
 });
-app.get("/cart", async(req, res) => {
-  let cart = JSON.parse(req.headers.cookie) || []; // Adjust this according to how you manage cookies
-  console.log("hhhhhh");
-  res.render("cart.ejs"); // Just render the view, the client-side script will handle the rest
-});
+
 app.listen(3001, () => {
   console.log("Server started");
 });

@@ -417,31 +417,10 @@
           margin-top: 2px;
         }
       }
-      .cart-icon-container {
-        position: relative;
-        margin-right: 1em;
-        color: white;
-      }
-
-      .cart-icon-container i {
-        font-size: 1.5em;
-        color: white;
-      }
-
-      #cart-count {
-        position: absolute;
-        top: -5px;
-        right: -10px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 0.2em 0.5em;
-        font-size: 0.8em;   
-      }
     </style>
   </head>
   <body>
-    <nav>      
+    <nav>
       <div class="nav-bar">
         <div class="logo">Buy-O-Ease</div>
         <div class="search">
@@ -451,13 +430,6 @@
             placeholder="Find Your Buy..."
             type="text"
           />
-        </div>
-        <!-- Cart Icon -->
-        <div class="cart-icon-container">
-          <a href="/cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count">0</span>
-          </a>
         </div>
       </div>
       <div class="nav-links">
@@ -531,8 +503,7 @@
                   <input class="form-check-input" type="checkbox" name="compare[]" value="<%= item._id %>" id="compare-<%= item._id %>">
                   <label class="form-check-label" for="compare-<%= item._id %>">Add to Compare</label>
                 </div>
-                <a href="/checkout" class="btn btn-primary mt-3">Buy Now</a>
-                <a href="#" class="btn btn-primary mt-3">Add to Cart</a>
+                <a href="#" class="btn btn-primary mt-3">Buy Now</a>
               </div>
             </div>
           </div>
@@ -575,41 +546,5 @@
         &copy; 2024 Buy-O-Ease | Designed by Buy-O-Ease Team
       </div>
     </footer>
-    <script>
-      // Initialize cart from localStorage or create an empty array
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-      // Function to add an item to the cart
-      function addToCart(id, name, price) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        // Check if the item already exists in the cart
-        const existingItem = cart.find(item => item.id === id);
-        if (existingItem) {
-          // If the item exists, increment its quantity
-          existingItem.quantity++;
-        } else {
-          // Otherwise, add the new item to the cart
-          cart.push({ id, name, price, quantity: 1 });
-        }
-        // Save the updated cart to localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-        // Update the UI to reflect the latest cart count
-        alert(`${name} added to cart`);
-        updateCartUI();
-      }
-    
-      // Function to update the cart count in the UI
-      function updateCartUI() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartIconCount = document.getElementById('cart-count');
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
-        // Update the displayed cart count
-        cartIconCount.textContent = totalItems;
-      }
-    
-      // Initialize the cart UI with the correct count on page load
-      document.addEventListener('DOMContentLoaded', updateCartUI);
-    </script>            
   </body>
 </html>
