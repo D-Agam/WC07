@@ -31,6 +31,7 @@
       rel="stylesheet"
     />
     <style>
+  
       body,
       nav {
         margin: 0;
@@ -417,10 +418,11 @@
           margin-top: 2px;
         }
       }
+    
     </style>
   </head>
   <body>
-    <nav>
+    <nav>      
       <div class="nav-bar">
         <div class="logo">Buy-O-Ease</div>
         <div class="search">
@@ -430,6 +432,13 @@
             placeholder="Find Your Buy..."
             type="text"
           />
+        </div>
+        <!-- Cart Icon -->
+        <div class="cart-icon-container">
+          <a href="/cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count">0</span>
+          </a>
         </div>
       </div>
       <div class="nav-links">
@@ -444,73 +453,59 @@
     <div class="container">
       <div class="sidebar">
         <div class="filter-section">
-        <form action="/filter" method="POST">
-          <h3>Color</h3>
-          <label
-            ><input type="checkbox" name="color" value="black" /> Black</label
-          >
-          <label
-            ><input type="checkbox" name="color" value="white" /> White</label
-          >
-          <label><input type="checkbox" name="color" value="blue" /> Blue</label>
-          <label
-            ><input type="checkbox" name="color" value="brown" /> Brown</label
-          >
+          <form action="/filter" method="POST">
+            <h3>Color</h3>
+            <label><input type="checkbox" name="color" value="black" /> Black</label>
+            <label><input type="checkbox" name="color" value="white" /> White</label>
+            <label><input type="checkbox" name="color" value="blue" /> Blue</label>
+            <label><input type="checkbox" name="color" value="brown" /> Brown</label>
+          </div>
+          <div class="filter-section">
+            <h3>Type</h3>
+            <label><input type="checkbox" name="type" value="eco-friendly" /> Eco-Friendly</label>
+            <label><input type="checkbox" name="type" value="normal" /> Normal</label>
+          </div>
+          <div class="filter-section">
+            <h3>Price Under</h3>
+            <label><input type="checkbox" name="price" value="499" />499</label>
+            <label><input type="checkbox" name="price" value="999" />999</label>
+          </div>
+          <div class="filter-section">
+            <button class="btn btn-primary mt-3" type="submit">Apply filter</button>
+          </div>
+          </form> 
         </div>
-        <div class="filter-section">
-          <h3>Type</h3>
-          <label
-            ><input type="checkbox" name="type" value="eco-friendly" />
-            Eco-Friendly</label
-          >
-          <label
-            ><input type="checkbox" name="type" value="normal" />
-            Normal</label
-          >
-        </div>
-        <div class="filter-section">
-          <h3>Price Under</h3>
-          <label
-            ><input type="checkbox" name="price" value="499" />499</label
-          >
-          <label
-            ><input type="checkbox" name="price" value="999" />999</label
-          >
-        </div>
-        <div class="filter-section">
-          <button class="btn btn-primary mt-3" type="submit">Apply filter</button>
-        </div>
-        </form> 
-      </div>
-      <div class="products">
-        <form action="/compare" method="post">
-        <div class="row">
-          <% product.forEach(item => { %>
-          <div class="col-sm-4 col-md-6 mb-6">
-            <div class="card">
-              <div class="card-strip"></div>
-              <div class="card-body">
-                <img
-                  class="card-img-top"
-                  src="<%= item.ID%>.webp"
-                  alt="<%= item.ID%>"
-                />
-                <h5><%= item.type %></h5>
-                <p>Eco-Friendly:-<%= item.eco %></p>
-                <p><%=item.description%></p>
-                <p>$<%= item.price %></p>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="compare[]" value="<%= item._id %>" id="compare-<%= item._id %>">
-                  <label class="form-check-label" for="compare-<%= item._id %>">Add to Compare</label>
+        <div class="products">
+          <form action="/compare" method="post">
+          <div class="row">
+            <% product.forEach(item => { %>
+            <div class="col-sm-4 col-md-6 mb-6">
+              <div class="card">
+                <div class="card-strip"></div>
+                <div class="card-body">
+                  <img
+                    class="card-img-top"
+                    src="<%= item.ID%>.webp"
+                    alt="<%= item.ID%>"
+                  />
+                  <h5><%= item.type %></h5>
+                  <p>Eco-Friendly:-<%= item.eco %></p>
+                  <p><%=item.description%></p>
+                  <p>$<%= item.price %></p>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="compare[]" value="<%= item._id %>" id="compare-<%= item._id %>">
+                    <label class="form-check-label" for="compare-<%= item._id %>">Add to Compare</label>
+                  </div>
+                  <a href="/checkout" class="btn btn-primary mt-3">Buy Now</a>
+                  <a href="#" class="btn btn-primary mt-3 add-to-cart" data-id="<%= item._id %>" data-name="<%= item.type %>" data-price="<%= item.price %>">Add to Cart</a>
                 </div>
-                <a href="#" class="btn btn-primary mt-3">Buy Now</a>
               </div>
             </div>
+            <% }); %>
           </div>
-          <% }); %>
+          <button type="submit" class="btn btn-primary mt-3">Compare Selected</button>
+        </form>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Compare Selected</button>
-      </form>
       </div>
     </div>
     <footer>
@@ -546,5 +541,52 @@
         &copy; 2024 Buy-O-Ease | Designed by Buy-O-Ease Team
       </div>
     </footer>
+    <script>
+      // Initialize cart from localStorage or create an empty array
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Function to add an item to the cart
+      function addToCart(id, name, price) {
+        const existingItem = cart.find(item => item.id === id);
+
+        if (existingItem) {
+          // If the item exists, increment its quantity
+          existingItem.quantity++;
+        } else {
+          // Otherwise, add the new item to the cart
+          cart.push({ id, name, price, quantity: 1 });
+        }
+
+        // Save the updated cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Update the UI to reflect the latest cart count
+        alert(`${name} added to cart.`);
+        updateCartUI();
+      }
+
+      // Function to update the cart count in the UI
+      function updateCartUI() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartIconCount = document.getElementById('cart-count');
+        
+        // Update the displayed cart count
+        cartIconCount.textContent = totalItems;
+      }
+
+      // Initialize the cart UI with the correct count on page load
+      document.addEventListener('DOMContentLoaded', updateCartUI);
+
+      // Add event listeners to "Add to Cart" buttons
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault(); // Prevent default anchor action
+          const itemId = event.target.dataset.id;
+          const itemName = event.target.dataset.name;
+          const itemPrice = event.target.dataset.price;
+          addToCart(itemId, itemName, itemPrice);
+        });
+      });
+    </script>
   </body>
 </html>

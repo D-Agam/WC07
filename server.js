@@ -5,10 +5,10 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const e = require("express");
-const { log } = require("console");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 let db;
+let cart = [];
 var name1="User";
 var msg="Good to have you back!!";
 connectToDb((err) => {
@@ -46,7 +46,7 @@ app.post("/login",async (req,res)=>{
         console.log("Error during login ",error);
         res.render("login.ejs",{msg:msg})
     }
-})
+});
 
 
 app.get("/signup", (req, res) => {
@@ -101,6 +101,29 @@ app.get("/orders",async (req,res)=>{
     res.status(500).send('Error fetching offers from database');
   }
 });
+
+app.get("/cart", (req, res) => {
+  // const userCart = cart[req.session.user] || [];
+  console.log(cart);
+  res.render("cart.ejs", { cart: cart });
+});
+
+// Handle add to cart
+
+// Serve checkout page
+app.get("/checkout", (req, res) => {
+  // Calculate total payable amount
+  var totalAmountPayable = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  totalAmountPayable=2397;
+  console.log(cart);
+  
+  
+  // Pass totalAmountPayable and cart to the view
+  res.render("checkout.ejs", { cart: cart, totalAmountPayable: totalAmountPayable });
+});
+
+
+
 app.get("/men",(req,res)=>{
     res.render("men.ejs",{name:name1});
 });
@@ -184,6 +207,7 @@ app.post("/compare", async (req, res) => {
   }
 });
 
+
 app.get("/men_jeans", async (req, res) => {
   try {
     const product = await db.collection("men").find({"upper/lower": "jeans"}).toArray();
@@ -195,7 +219,7 @@ app.get("/men_jeans", async (req, res) => {
 });
 app.post("/filter1", async (req, res) => {
   let { color, type, price } = req.body;
-  let f = "@";
+  let f = "No";
 
   // Set eco filter
   if (Array.isArray(type) && type.includes("eco-friendly")) {
@@ -208,6 +232,8 @@ app.post("/filter1", async (req, res) => {
   } else if (type === "normal") {
     f = "No";
   }
+
+  // Normalize checkbox values to arrays
   color = Array.isArray(color) ? color : (color ? [color] : []);
   type = Array.isArray(type) ? type : (type ? [type] : []);
   price = Array.isArray(price) ? price.map(p => parseFloat(p)) : (price ? [parseFloat(price)] : []);
@@ -226,7 +252,7 @@ app.post("/filter1", async (req, res) => {
 
   if (f === "Yes") {
     query.eco = f; // Include eco filter if eco-friendly is selected
-  }else if(f==="No"){
+  }else{
     query.eco="No";
   }
 
